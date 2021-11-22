@@ -1,0 +1,53 @@
+{
+  "name": "@nodestrap/list",
+  "version": "4.0.0",
+  "description": "Represents a series of content.",
+  "type": "module",
+  "main": "dist/List.jsx",
+  "types": "dist/List.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodestrap/list.git"
+  },
+  "keywords": [
+    "list",
+    "group",
+    "series",
+    "content",
+    "component",
+    "element",
+    "react",
+    "nodestrap",
+    "styled"
+  ],
+  "author": "heymarco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodestrap/list/issues"
+  },
+  "homepage": "https://github.com/nodestrap/list#readme",
+  "dependencies": {
+    "@cssfn/css-config": "^1.0.1",
+    "@cssfn/cssfn": "^1.0.3",
+    "@cssfn/react-cssfn": "^1.0.3",
+    "@cssfn/types": "^1.0.3",
+    "@nodestrap/action-control": "^4.0.2",
+    "@nodestrap/basic": "^4.0.2",
+    "@nodestrap/borders": "^4.0.1",
+    "@nodestrap/button": "^4.0.1",
+    "@nodestrap/content": "^4.0.2",
+    "@nodestrap/control": "^4.0.2",
+    "@nodestrap/element": "^4.0.1",
+    "@nodestrap/icon": "^4.0.3",
+    "@nodestrap/indicator": "^4.0.2",
+    "@nodestrap/spacers": "^4.0.1",
+    "@nodestrap/stripouts": "^4.0.1",
+    "@nodestrap/typos": "^4.0.0",
+    "@nodestrap/utilities": "^4.0.0",
+    "@types/react": "^17.0.36",
+    "react": "^17.0.2"
+  }
+}
