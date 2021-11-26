@@ -922,29 +922,23 @@ export function ListItem(props) {
     // jsx:
     return (props.actionCtrl
         ?
-            <ActionControl 
-            // other props:
-            {...props} 
-            // semantics:
-            semanticTag={props.semanticTag ?? (props.href ? 'a' : [null])} /* not using <button> for "button" because the children may contain any_html_elements */ semanticRole={props.semanticRole ?? (props.href ? 'link' : 'button')} 
-            // accessibilities:
-            inheritActive={props.inheritActive ?? true} // change default value to `true`
-             
-            // variants:
-            mild={props.mild ?? false} 
-            // classes:
-            mainClass={props.mainClass ?? [sheet.main, sheetAction.main].join(' ')}/>
+            React.createElement(ActionControl, { ...props, 
+                // semantics:
+                semanticTag: props.semanticTag ?? (props.href ? 'a' : [null]), semanticRole: props.semanticRole ?? (props.href ? 'link' : 'button'), 
+                // accessibilities:
+                inheritActive: props.inheritActive ?? true, 
+                // variants:
+                mild: props.mild ?? false, 
+                // classes:
+                mainClass: props.mainClass ?? [sheet.main, sheetAction.main].join(' ') })
         :
-            <Indicator 
-            // other props:
-            {...props} 
-            // accessibilities:
-            inheritActive={props.inheritActive ?? true} // change default value to `true`
-             
-            // variants:
-            mild={props.mild ?? false} 
-            // classes:
-            mainClass={props.mainClass ?? sheet.main}/>);
+            React.createElement(Indicator, { ...props, 
+                // accessibilities:
+                inheritActive: props.inheritActive ?? true, 
+                // variants:
+                mild: props.mild ?? false, 
+                // classes:
+                mainClass: props.mainClass ?? sheet.main }));
 }
 export { ListItem as Item };
 export function ListSeparatorItem(props) {
@@ -952,15 +946,12 @@ export function ListSeparatorItem(props) {
     const sheet = useListItemSheet();
     const sheetSeparator = useListSeparatorItemSheet();
     // jsx:
-    return (<ListItem 
-    // other props:
-    {...props} 
-    // behaviors:
-    actionCtrl={false} 
-    // classes:
-    mainClass={props.mainClass ?? [sheet.main, sheetSeparator.main, 'void'].join(' ')}>
-            <hr />
-        </ListItem>);
+    return (React.createElement(ListItem, { ...props, 
+        // behaviors:
+        actionCtrl: false, 
+        // classes:
+        mainClass: props.mainClass ?? [sheet.main, sheetSeparator.main, 'void'].join(' ') },
+        React.createElement("hr", null)));
 }
 ListSeparatorItem.prototype = ListItem.prototype; // mark as ListItem compatible
 export function List(props) {
@@ -985,52 +976,46 @@ export function List(props) {
     const wrapSemanticTag = (isSemanticList ? 'li' : [null]);
     const wrapSemanticRole = (isList ? 'listitem' : [null]);
     // jsx:
-    return (<Indicator 
-    // other props:
-    {...restProps} 
-    // semantics:
-    semanticTag={semanticTag} semanticRole={semanticRole} aria-orientation={props['aria-orientation'] ?? (orientationHorizontal ? 'horizontal' : 'vertical')} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main} variantClasses={[...(props.variantClasses ?? []),
+    return (React.createElement(Indicator, { ...restProps, 
+        // semantics:
+        semanticTag: semanticTag, semanticRole: semanticRole, "aria-orientation": props['aria-orientation'] ?? (orientationHorizontal ? 'horizontal' : 'vertical'), 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main, variantClasses: [...(props.variantClasses ?? []),
             orientationVariant.class,
             listVariant.class,
-        ]}>
-            {React.Children.map(children, (child, index) => {
-            // handlers:
-            const handleAnimationEnd = (e) => {
-                // triggers `List`'s onAnimationEnd event
-                e.currentTarget.parentElement?.parentElement?.dispatchEvent(new AnimationEvent('animationend', { animationName: e.animationName, bubbles: true }));
-            };
-            // jsx:
-            return (<Element 
+        ] }, React.Children.map(children, (child, index) => {
+        // handlers:
+        const handleAnimationEnd = (e) => {
+            // triggers `List`'s onAnimationEnd event
+            e.currentTarget.parentElement?.parentElement?.dispatchEvent(new AnimationEvent('animationend', { animationName: e.animationName, bubbles: true }));
+        };
+        // jsx:
+        return (React.createElement(Element
+        // essentials:
+        , { 
             // essentials:
-            key={index} 
+            key: index, 
             // semantics:
-            semanticTag={wrapSemanticTag} semanticRole={wrapSemanticRole}>
-                        {isTypeOf(child, ListItem)
-                    ?
-                        <child.type 
-                        // other props:
-                        {...child.props} 
-                        // behaviors:
-                        actionCtrl={child.props.actionCtrl ?? actionCtrl} // the default value of [actionCtrl] is belong to List's [actionCtrl]
-                         
-                        // events:
-                        onAnimationEnd={(e) => {
-                                child.props.onAnimationEnd?.(e);
-                                handleAnimationEnd(e);
-                            }}/>
-                    :
-                        <ListItem 
-                        // behaviors:
-                        actionCtrl={actionCtrl} // the default value of [actionCtrl] is belong to List's [actionCtrl]
-                         
-                        // events:
-                        onAnimationEnd={handleAnimationEnd}>
-                                {child}
-                            </ListItem>}
-                    </Element>);
-        })}
-        </Indicator>);
+            semanticTag: wrapSemanticTag, semanticRole: wrapSemanticRole }, isTypeOf(child, ListItem)
+            ?
+                React.createElement(child.type
+                // other props:
+                , { ...child.props, 
+                    // behaviors:
+                    actionCtrl: child.props.actionCtrl ?? actionCtrl, 
+                    // events:
+                    onAnimationEnd: (e) => {
+                        child.props.onAnimationEnd?.(e);
+                        handleAnimationEnd(e);
+                    } })
+            :
+                React.createElement(ListItem
+                // behaviors:
+                , { 
+                    // behaviors:
+                    actionCtrl: actionCtrl, 
+                    // events:
+                    onAnimationEnd: handleAnimationEnd }, child)));
+    })));
 }
 export { List as default };
