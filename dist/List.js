@@ -216,7 +216,7 @@ export const useListItemSheet = createUseSheet(() => [
             usesListItemStates(),
         ]),
     ]),
-]);
+], /*sheetId :*/ '2vajf0sgc2'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 export const usesListSeparatorItemLayout = () => {
     // options:
     const [orientationBlockSelector, orientationInlineSelector] = usesOrientationRule(defaultOrientationRuleOptions);
@@ -289,7 +289,7 @@ export const useListSeparatorItemSheet = createUseSheet(() => [
             ]),
         ]),
     ]),
-]);
+], /*sheetId :*/ 'n8qnfmo0ja'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 export const usesListActionItemLayout = () => {
     return composition([
         imports([
@@ -352,7 +352,7 @@ export const useListActionItemSheet = createUseSheet(() => [
             usesListActionItemStates(),
         ]),
     ]),
-]);
+], /*sheetId :*/ '1jdx2owh1e'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 export const usesListLayout = (options) => {
     // options:
     options = normalizeOrientationRule(options, defaultOrientationRuleOptions);
@@ -881,7 +881,7 @@ export const useListSheet = createUseSheet(() => [
             usesListStates(),
         ]),
     ]),
-]);
+], /*sheetId :*/ 'dj4jw72kyr'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 // configs:
 export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
     return {
