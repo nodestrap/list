@@ -49,7 +49,8 @@ isPress,
 usesActionControlLayout, usesActionControlVariants, usesActionControlStates, ActionControl, } from '@nodestrap/action-control';
 import { 
 // hooks:
-usesBorderAsContainer, usesBorderAsSeparatorBlock, usesBorderAsSeparatorInline, 
+usesBorderAsContainer, usesBorderAsSeparatorBlock, usesBorderAsSeparatorInline, } from '@nodestrap/container';
+import { 
 // styles:
 usesContentMedia, usesContentBasicLayout, usesContentBasicVariants, } from '@nodestrap/content';
 import { 
@@ -389,11 +390,6 @@ export const usesListLayout = (options) => {
                 imports([
                     borderStroke(), // dedicated border stroke for each list & wrapper
                 ]),
-                layout({
-                    // borders:
-                    ...expandBorderStroke(),
-                    ...expandBorderRadius(), // expand borderRadius css vars
-                }),
             ]),
             // children:
             ...children(wrapperElm, [
@@ -408,7 +404,15 @@ export const usesListLayout = (options) => {
                 }),
             ]),
             // customize:
-            ...usesGeneralProps(cssProps), // apply general cssProps
+            ...usesGeneralProps(cssProps),
+            // borders:
+            ...children(['&', wrapperElm], [
+                layout({
+                    // borders:
+                    ...expandBorderStroke(),
+                    ...expandBorderRadius(), // expand borderRadius css vars
+                }),
+            ]),
         }),
         variants([
             /* the orientation variants are part of the layout, because without these variants the layout is broken */
