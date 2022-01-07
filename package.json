@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/list",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Represents a series of content.",
   "type": "module",
   "main": "dist/List.js",
@@ -38,8 +38,8 @@
     "@nodestrap/basic": "^4.0.5",
     "@nodestrap/borders": "^4.0.2",
     "@nodestrap/button": "^4.0.4",
-    "@nodestrap/container": "^4.0.7",
-    "@nodestrap/content": "^4.0.6",
+    "@nodestrap/container": "^4.0.8",
+    "@nodestrap/content": "^4.0.7",
     "@nodestrap/control": "^4.0.7",
     "@nodestrap/element": "^4.0.5",
     "@nodestrap/icon": "^4.0.8",

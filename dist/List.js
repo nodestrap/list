@@ -52,7 +52,7 @@ import {
 usesBorderAsContainer, usesBorderAsSeparatorBlock, usesBorderAsSeparatorInline, } from '@nodestrap/container';
 import { 
 // styles:
-usesContentMedia, usesContentBasicLayout, usesContentBasicVariants, } from '@nodestrap/content';
+usesContentBasicLayout, usesContentBasicVariants, usesContentChildren, } from '@nodestrap/content';
 import { 
 // hooks:
 usesIconColor, 
@@ -145,13 +145,13 @@ export const usesListItemBaseLayout = (options) => {
             rule(parentOrientationBlockSelector, [
                 imports([
                     // borders:
-                    usesBorderAsSeparatorBlock(),
+                    usesBorderAsSeparatorBlock(), // must be placed at the last
                 ]),
             ]),
             rule(parentOrientationInlineSelector, [
                 imports([
                     // borders:
-                    usesBorderAsSeparatorInline(),
+                    usesBorderAsSeparatorInline(), // must be placed at the last
                 ]),
             ]),
         ]),
@@ -423,10 +423,6 @@ export const usesListLayout = (options) => {
                     flexDirection: 'column',
                     // children:
                     ...children(wrapperElm, [
-                        imports([
-                            // borders:
-                            usesBorderAsSeparatorBlock(),
-                        ]),
                         layout({
                             // layouts:
                             flexDirection: 'column',
@@ -462,6 +458,10 @@ export const usesListLayout = (options) => {
                                 ]),
                             ]),
                         }),
+                        imports([
+                            // borders:
+                            usesBorderAsSeparatorBlock(), // must be placed at the last
+                        ]),
                     ]),
                 }),
             ]),
@@ -472,10 +472,6 @@ export const usesListLayout = (options) => {
                     flexDirection: 'row',
                     // children:
                     ...children(wrapperElm, [
-                        imports([
-                            // borders:
-                            usesBorderAsSeparatorInline(),
-                        ]),
                         layout({
                             // layouts:
                             flexDirection: 'row',
@@ -511,6 +507,10 @@ export const usesListLayout = (options) => {
                                 ]),
                             ]),
                         }),
+                        imports([
+                            // borders:
+                            usesBorderAsSeparatorInline(), // must be placed at the last
+                        ]),
                     ]),
                 }),
             ]),
@@ -592,10 +592,10 @@ export const usesListVariants = (options) => {
                             // children:
                             ...children('*', [
                                 imports([
-                                    // media:
-                                    usesContentMedia(),
                                     // layouts:
                                     usesContentBasicLayout(),
+                                    // children:
+                                    usesContentChildren(),
                                 ]),
                             ]),
                         }),
