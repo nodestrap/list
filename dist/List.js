@@ -48,6 +48,8 @@ isPress,
 // styles:
 usesActionControlLayout, usesActionControlVariants, usesActionControlStates, ActionControl, } from '@nodestrap/action-control';
 import { 
+// selectors:
+selectorIsFirstVisibleChild, selectorIsLastVisibleChild, 
 // hooks:
 usesBorderAsContainer, usesBorderAsSeparatorBlock, usesBorderAsSeparatorInline, } from '@nodestrap/container';
 import { 
@@ -439,7 +441,7 @@ export const usesListLayout = (options) => {
                             */
                             ...children(':not(_)', [
                                 variants([
-                                    rule(':where(:first-child)', [
+                                    rule(selectorIsFirstVisibleChild, [
                                         layout({
                                             // borders:
                                             // add rounded corners on top:
@@ -447,7 +449,7 @@ export const usesListLayout = (options) => {
                                             [borderRadiusDecls.borderStartEndRadius]: 'inherit', // copy wrapper's borderRadius
                                         }),
                                     ]),
-                                    rule(':where(:last-child)', [
+                                    rule(selectorIsLastVisibleChild, [
                                         layout({
                                             // borders:
                                             // add rounded corners on bottom:
@@ -488,7 +490,7 @@ export const usesListLayout = (options) => {
                             */
                             ...children(':not(_)', [
                                 variants([
-                                    rule(':where(:first-child)', [
+                                    rule(selectorIsFirstVisibleChild, [
                                         layout({
                                             // borders:
                                             // add rounded corners on left:
@@ -496,7 +498,7 @@ export const usesListLayout = (options) => {
                                             [borderRadiusDecls.borderEndStartRadius]: 'inherit', // copy wrapper's borderRadius
                                         }),
                                     ]),
-                                    rule(':where(:last-child)', [
+                                    rule(selectorIsLastVisibleChild, [
                                         layout({
                                             // borders:
                                             // add rounded corners on right:
