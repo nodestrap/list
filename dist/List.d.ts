@@ -6,10 +6,10 @@ import { IndicatorProps } from '@nodestrap/indicator';
 import { ActionControlProps } from '@nodestrap/action-control';
 import { ButtonType } from '@nodestrap/button';
 export declare const defaultOrientationRuleOptions: OrientationRuleOptions;
-export declare const markActive: () => import("@cssfn/cssfn").StyleCollection;
-export declare const dontMarkActive: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesThemeDefault: (themeName?: ThemeName | null) => import("@cssfn/cssfn").StyleCollection;
-export declare const usesThemeActive: (themeName?: ThemeName | null) => import("@cssfn/cssfn").StyleCollection;
+export declare const markActive: () => import("@cssfn/cssfn").Rule;
+export declare const dontMarkActive: () => import("@cssfn/cssfn").Rule;
+export declare const usesThemeDefault: (themeName?: ThemeName | null) => import("@cssfn/cssfn").Rule;
+export declare const usesThemeActive: (themeName?: ThemeName | null) => import("@cssfn/cssfn").Rule;
 export declare type ListBasicStyle = 'flat' | 'flush' | 'joined';
 export declare type ListStyle = ListBasicStyle | 'content' | 'btn' | 'tab' | 'breadcrumb' | 'bullet' | 'numbered';
 export interface ListVariant {
@@ -20,28 +20,28 @@ export declare const useListVariant: (props: ListVariant) => {
 };
 export declare const wrapperElm = "*";
 export declare const listItemElm = ":where(:first-child)";
-export declare const stripoutCommonBasicLayout: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListItemInheritMildVariant: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListItemBaseLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListItemLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListItemVariants: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListItemStates: () => import("@cssfn/cssfn").StyleCollection;
+export declare const stripoutCommonBasicLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesListItemInheritMildVariant: () => import("@cssfn/cssfn").Rule;
+export declare const usesListItemBaseLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesListItemLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesListItemVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesListItemStates: () => import("@cssfn/cssfn").Rule;
 export declare const useListItemSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
-export declare const usesListSeparatorItemLayout: () => import("@cssfn/cssfn").StyleCollection;
+export declare const usesListSeparatorItemLayout: () => import("@cssfn/cssfn").Rule;
 export declare const useListSeparatorItemSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
-export declare const usesListActionItemLayout: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListActionItemVariants: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListActionItemStates: () => import("@cssfn/cssfn").StyleCollection;
+export declare const usesListActionItemLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesListActionItemVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesListActionItemStates: () => import("@cssfn/cssfn").Rule;
 export declare const useListActionItemSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
-export declare const usesListLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").StyleCollection;
+export declare const usesListLayout: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
 export interface ListBasicVariantOptions {
     additionRemoveBorderSelector?: SelectorCollection;
     additionRemoveSeparatorSelector?: SelectorCollection;
-    minSpecificityWeight?: number;
+    specificityWeight?: number;
 }
-export declare const usesListBasicVariants: (options?: ListBasicVariantOptions | undefined) => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListVariants: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").StyleCollection;
-export declare const usesListStates: () => import("@cssfn/cssfn").StyleCollection;
+export declare const usesListBasicVariants: (options?: ListBasicVariantOptions | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesListVariants: (options?: OrientationRuleOptions | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesListStates: () => import("@cssfn/cssfn").Rule;
 export declare const useListSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     btnSpacing: import("@cssfn/css-types").Cust.Ref;
