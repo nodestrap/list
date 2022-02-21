@@ -20,7 +20,6 @@ usesGeneralProps, usesPrefixedProps, usesSuffixedProps, overwriteProps, } from '
 // nodestrap utilities:
 import { borderRadiuses, } from '@nodestrap/borders'; // configurable borders & border radiuses defs
 import spacers from '@nodestrap/spacers'; // configurable spaces defs
-import { horizontalRule, } from '@nodestrap/typos';
 import { stripoutList, stripoutFocusableElement, } from '@nodestrap/stripouts';
 import { 
 // utilities:
@@ -250,8 +249,7 @@ export const usesListSeparatorItemLayout = () => {
             // appearances:
             opacity: 'unset',
             // spacings:
-            marginBlockStart: `calc(${horizontalRule.cssProps.marginBlockStart} / 2)`,
-            marginBlockEnd: `calc(${horizontalRule.cssProps.marginBlockEnd} / 2)`,
+            margin: 0,
         }),
         ...rule(parentOrientationInlineSelector, {
             // children:
@@ -812,7 +810,16 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
         bulletPadding: spacers.xs,
         bulletPaddingSm: spacers.xxs,
         bulletPaddingLg: spacers.sm,
-        numberedContent: [['counters(ListNumber, ".")', '". "']],
+        /* a non_nested counter */
+        numberedContent: [[
+                'counter(ListNumber)',
+                '". "'
+            ]],
+        /* a nested counter */
+        // numberedContent   : [[
+        //     'counters(ListNumber, ".")',
+        //     '". "'
+        // ]],
     };
 }, { prefix: 'lst' });
 export function ListItem(props) {
