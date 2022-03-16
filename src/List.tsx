@@ -142,6 +142,11 @@ import {
     
     
     
+    // utilities:
+    isClientSideLink,
+    
+    
+    
     // styles:
     usesActionControlLayout,
     usesActionControlVariants,
@@ -151,7 +156,6 @@ import {
     
     // react components:
     ActionControlProps,
-    ActionControl,
 }                           from '@nodestrap/action-control'
 import {
     // selectors:
@@ -188,6 +192,8 @@ import {
     
     // react components:
     ButtonType,
+    ButtonProps,
+    Button,
 }                           from '@nodestrap/button'
 
 
@@ -1219,11 +1225,20 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
     
     
     
-    /* not using <button> for "button" because the children may contain any_html_elements */
-    // fn props:
-    // const semanticTag  = props.semanticTag  ?? (props.href ? 'a'    : 'button');
-    // const semanticRole = props.semanticRole ?? (props.href ? 'link' : 'button');
-    // const [, , , isSemanticBtn] = useTestSemantic({ tag: props.tag, role: props.role, semanticTag, semanticRole }, { semanticTag: 'button', semanticRole: 'button' });
+    // // fn props:
+    // const isNativeLink = !!props.href;
+    // const isClientLink = !isNativeLink && !!isClientSideLink(props.children);
+    // const semanticTag  = props.semanticTag  ?? (isNativeLink ? 'a'    : ['button', 'a'   ]);
+    // const semanticRole = props.semanticRole ?? (isNativeLink ? 'link' : ['button', 'link']);
+    // const tag          = props.tag  ?? (isClientLink ? 'a' : (!isNativeLink ? '' : undefined));
+    // const [, , , isSemanticBtn] = useTestSemantic({ tag, role: props.role, semanticTag, semanticRole }, { semanticTag: 'button', semanticRole: 'button' });
+    // const type         = props.type ?? (isSemanticBtn ? 'button' : undefined);
+    
+    
+    
+    const isNativeLink = !!props.href;
+    const isClientLink = !isNativeLink && !!isClientSideLink(props.children);
+    const tag          = props.tag ?? ((!isNativeLink && !isClientLink) ? '' : undefined);
     
     
     
@@ -1231,14 +1246,13 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
     return (
         props.actionCtrl
         ?
-        <ActionControl<TElement>
+        <Button
             // other props:
-            {...props}
+            {...(props as ButtonProps)}
             
             
             // semantics:
-            semanticTag ={props.semanticTag  ?? (props.href ? 'a'    : [null]  )} /* not using <button> for "button" because the children may contain any_html_elements */
-            semanticRole={props.semanticRole ?? (props.href ? 'link' : 'button')}
+            tag={tag}
             
             
             // accessibilities:
@@ -1251,19 +1265,15 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
             
             // classes:
             mainClass={props.mainClass ?? [sheet.main, sheetAction.main].join(' ')}
-            
-            
-            /* not using <button> for "button" because the children may contain any_html_elements */
-            // // Button props:
-            // {...{
-            //     // actions:
-            //     type : props.type ?? (isSemanticBtn ? 'button' : undefined),
-            // }}
         />
         :
         <Indicator<TElement>
             // other props:
             {...props}
+            
+            
+            // semantics:
+            tag={tag}
             
             
             // accessibilities:
