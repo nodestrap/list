@@ -46,10 +46,10 @@ usesThemeDefault as controlUsesThemeDefault, usesThemeActive as controlUsesTheme
 import { 
 // hooks:
 isPress, 
-// utilities:
-isClientSideLink, 
 // styles:
-usesActionControlLayout, usesActionControlVariants, usesActionControlStates, } from '@nodestrap/action-control';
+usesActionControlLayout, usesActionControlVariants, usesActionControlStates, 
+// react components:
+ActionControl, } from '@nodestrap/action-control';
 import { 
 // selectors:
 selectorIsFirstVisibleChild, selectorIsLastVisibleChild, selectorNotfirstVisibleChild, 
@@ -65,7 +65,7 @@ usesIconColor,
 usesIconImage, } from '@nodestrap/icon';
 import { 
 // styles:
-usesButtonLayout, Button, } from '@nodestrap/button';
+usesButtonLayout, useSemanticButton, } from '@nodestrap/button';
 // hooks:
 // layouts:
 export const defaultOrientationRuleOptions = defaultBlockOrientationRuleOptions;
@@ -828,31 +828,26 @@ export function ListItem(props) {
     // styles:
     const sheet = useListItemSheet();
     const sheetAction = useListActionItemSheet();
-    // // fn props:
-    // const isNativeLink = !!props.href;
-    // const isClientLink = !isNativeLink && !!isClientSideLink(props.children);
-    // const semanticTag  = props.semanticTag  ?? (isNativeLink ? 'a'    : ['button', 'a'   ]);
-    // const semanticRole = props.semanticRole ?? (isNativeLink ? 'link' : ['button', 'link']);
-    // const tag          = props.tag  ?? (isClientLink ? 'a' : (!isNativeLink ? '' : undefined));
-    // const [, , , isSemanticBtn] = useTestSemantic({ tag, role: props.role, semanticTag, semanticRole }, { semanticTag: 'button', semanticRole: 'button' });
-    // const type         = props.type ?? (isSemanticBtn ? 'button' : undefined);
-    const isNativeLink = !!props.href;
-    const isClientLink = !isNativeLink && !!isClientSideLink(props.children);
-    const tag = props.tag ?? ((!isNativeLink && !isClientLink) ? '' : undefined);
+    // fn props:
+    const { semanticTag, semanticRole, isSemanticBtn, tag: buttonTag, type: buttonType, } = useSemanticButton(props);
+    const isDefaultButton = isSemanticBtn && (props.tag === undefined);
+    const tag = (isDefaultButton ? (props.tag ?? '') : buttonTag);
+    const type = (isDefaultButton ? props.type : buttonType);
     // jsx:
     return (props.actionCtrl
         ?
-            React.createElement(Button
-            // other props:
-            , { ...props, 
+            React.createElement(ActionControl, { ...props, 
                 // semantics:
-                tag: tag, 
+                semanticTag: semanticTag, semanticRole: semanticRole, tag: tag, 
                 // accessibilities:
                 inheritActive: props.inheritActive ?? true, 
                 // variants:
                 mild: props.mild ?? false, 
                 // classes:
-                mainClass: props.mainClass ?? [sheet.main, sheetAction.main].join(' ') })
+                mainClass: props.mainClass ?? [sheet.main, sheetAction.main].join(' '), ...{
+                    // actions:
+                    type,
+                } })
         :
             React.createElement(Indicator, { ...props, 
                 // semantics:

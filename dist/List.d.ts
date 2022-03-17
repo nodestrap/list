@@ -3,8 +3,7 @@ import type { SingleOrArray } from '@cssfn/types';
 import { SelectorCollection } from '@cssfn/cssfn';
 import { OrientationName, OrientationRuleOptions, OrientationVariant, ThemeName } from '@nodestrap/basic';
 import { IndicatorProps } from '@nodestrap/indicator';
-import { ActionControlProps } from '@nodestrap/action-control';
-import { ButtonType } from '@nodestrap/button';
+import { SemanticButtonProps } from '@nodestrap/button';
 export declare const defaultOrientationRuleOptions: OrientationRuleOptions;
 export declare const markActive: () => import("@cssfn/cssfn").Rule;
 export declare const dontMarkActive: () => import("@cssfn/cssfn").Rule;
@@ -116,8 +115,7 @@ export declare const cssProps: import("@cssfn/css-config").Refs<{
     bulletPaddingLg: import("@cssfn/css-types").Cust.Ref;
     numberedContent: string[][];
 }>, cssConfig: import("@cssfn/css-config").CssConfigSettings;
-export interface ListItemProps<TElement extends HTMLElement = HTMLElement> extends ActionControlProps<TElement>, React.ButtonHTMLAttributes<TElement>, React.AnchorHTMLAttributes<TElement> {
-    type?: ButtonType;
+export interface ListItemProps<TElement extends HTMLElement = HTMLElement> extends SemanticButtonProps<TElement> {
     /**
      * `undefined` : same as `true`.
      * `true`      : inherits `active` from `List`.
