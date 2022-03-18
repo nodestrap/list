@@ -726,6 +726,14 @@ export const usesListVariants = (options) => {
                             borderStroke(),
                         ]),
                         ...style({
+                            // layouts:
+                            display: 'flex',
+                            flexDirection: 'inherit',
+                            justifyContent: 'inherit',
+                            alignItems: 'inherit',
+                            flexWrap: 'inherit',
+                            // sizes:
+                            flex: 'inherit',
                             // borders:
                             ...expandBorderStroke(),
                             // big rounded corners on top:
