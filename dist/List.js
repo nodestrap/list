@@ -187,7 +187,7 @@ export const usesListItemVariants = () => {
     // layouts:
     const [sizes] = usesSizeVariant((sizeName) => style({
         // overwrites propName = {item}PropName{SizeName}:
-        ...overwriteProps(cssDecls, usesSuffixedProps(usesPrefixedProps(cssProps, 'item'), sizeName)),
+        ...overwriteProps(cssDecls, usesSuffixedProps(usesPrefixedProps(cssProps, 'item', false), sizeName)),
     }));
     return style({
         ...imports([
@@ -676,7 +676,6 @@ export const usesListVariants = (options) => {
             rule('.breadcrumb', {
                 // children:
                 ...children(wrapperElm, {
-                    // children:
                     ...rule(selectorNotfirstVisibleChild, {
                         ...imports([
                             // colors:
@@ -705,6 +704,19 @@ export const usesListVariants = (options) => {
                         lineHeight: 1,
                         // customize:
                         ...usesGeneralProps(usesPrefixedProps(cssProps, 'breadcrumb')), // apply general cssProps starting with breadcrumb***
+                    }),
+                }),
+                // customize:
+                ...rule(orientationBlockSelector, {
+                    // children:
+                    ...children(wrapperElm, {
+                        ...rule(selectorNotfirstVisibleChild, {
+                            // children:
+                            ...children('::before', {
+                                // overwrites propName = {breadcrumbSeparator}PropName{Block}:
+                                ...overwriteProps(cssDecls, usesSuffixedProps(usesPrefixedProps(cssProps, 'breadcrumbSeparator', false), 'block')),
+                            }),
+                        }),
                     }),
                 }),
             }),
@@ -812,8 +824,15 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
         breadcrumbPaddingInlineLg: bcssProps.paddingBlockLg,
         breadcrumbPaddingBlockLg: bcssProps.paddingBlockLg,
         breadcrumbSeparatorImg: `url("data:image/svg+xml,${escapeSvg("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><polyline points='7.5 3 16.5 12 7.5 21' fill='none' stroke='#000' stroke-linecap='square' stroke-width='3'/></svg>")}")`,
+        breadcrumbSeparatorImgBlock: `url("data:image/svg+xml,${escapeSvg("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><polyline points='7.5 3 16.5 12 7.5 21' fill='none' stroke='#000' stroke-linecap='square' stroke-width='3' transform-origin='center' transform='rotate(90)'/></svg>")}")`,
         breadcrumbSeparatorInlineSize: '0.8em',
+        breadcrumbSeparatorBlockSize: 'auto',
+        breadcrumbSeparatorInlineSizeBlock: 'auto',
+        breadcrumbSeparatorBlockSizeBlock: '0.8em',
         breadcrumbSeparatorMarginInline: '0.25em',
+        breadcrumbSeparatorMarginBlock: 0,
+        breadcrumbSeparatorMarginInlineBlock: 0,
+        breadcrumbSeparatorMarginBlockBlock: '0.25em',
         bulletSpacing: spacers.sm,
         bulletSpacingSm: spacers.xs,
         bulletSpacingLg: spacers.md,
