@@ -158,6 +158,8 @@ export const usesListItemBaseLayout = (options) => {
                 usesBorderAsSeparatorInline(), // must be placed at the last
             ]),
         }),
+        // spacings:
+        margin: 0, // a fix for marginBlockEnd of <h1>...<h6>
     });
 };
 export const usesListItemLayout = (options) => {
