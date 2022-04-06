@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/list",
-  "version": "4.0.14",
+  "version": "4.0.15",
   "description": "Represents a series of content.",
   "type": "module",
   "main": "dist/List.js",

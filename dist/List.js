@@ -868,7 +868,9 @@ export function ListItem(props) {
     // behaviors:
     actionCtrl = defaultActionCtrl, 
     // variants:
-    outlined = defaultOutlined, mild = defaultMild, ...restProps } = props;
+    outlined = false, // the default value at <List> level, not at <ListItem>
+    mild = false, // the default value at <List> level, not at <ListItem>
+    ...restProps } = props;
     // fn props:
     const { semanticTag, semanticRole, isSemanticBtn, tag: buttonTag, type: buttonType, } = useSemanticButton(props);
     const isDefaultButton = isSemanticBtn && (props.tag === undefined);
@@ -925,9 +927,10 @@ export function List(props) {
     // rest props:
     const { 
     // behaviors:
-    actionCtrl = defaultActionCtrl, 
+    actionCtrl = undefined, // the default <ListItem>'s actionCtrl value, if not assigned
     // variants:
-    outlined = defaultOutlined, mild = defaultMild, 
+    outlined = defaultOutlined, // if `true` => force apply to <ListItem>s, otherwise independent by <ListItem>s
+    mild = defaultMild, // if `true` => force apply to <ListItem>s, otherwise independent by <ListItem>s
     // children:
     children, ...restProps } = props;
     // fn props:
@@ -969,7 +972,7 @@ export function List(props) {
                     // behaviors:
                     actionCtrl: child.props.actionCtrl ?? actionCtrl, 
                     // variants:
-                    outlined: child.props.outlined ?? outlined, mild: child.props.mild ?? mild, 
+                    outlined: (outlined || undefined) ?? child.props.outlined, mild: (mild || undefined) ?? child.props.mild, 
                     // events:
                     onAnimationEnd: (e) => {
                         child.props.onAnimationEnd?.(e);
@@ -982,7 +985,7 @@ export function List(props) {
                     // behaviors:
                     actionCtrl: actionCtrl, 
                     // variants:
-                    outlined: outlined, mild: mild, 
+                    outlined: (outlined || undefined), mild: (mild || undefined), 
                     // events:
                     onAnimationEnd: handleAnimationEnd }, child)));
     })));
