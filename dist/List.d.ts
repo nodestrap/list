@@ -153,8 +153,7 @@ export declare function ListSeparatorItem<TElement extends HTMLElement = HTMLEle
 export declare namespace ListSeparatorItem {
     var prototype: any;
 }
-export interface ListProps<TElement extends HTMLElement = HTMLElement> extends IndicatorProps<TElement>, OrientationVariant, ListVariant {
-    actionCtrl?: boolean;
+export interface ListProps<TElement extends HTMLElement = HTMLElement> extends IndicatorProps<TElement>, OrientationVariant, ListVariant, Pick<ListItemProps<TElement>, 'actionCtrl'> {
 }
 export declare function List<TElement extends HTMLElement = HTMLElement>(props: ListProps<TElement>): JSX.Element;
 export { List as default };

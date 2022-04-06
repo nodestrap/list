@@ -1223,6 +1223,13 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
 
 
 
+// defaults:
+const defaultActionCtrl = false;
+const defaultOutlined   = false;
+const defaultMild       = true;
+
+
+
 // react components:
 
 export interface ListItemProps<TElement extends HTMLElement = HTMLElement>
@@ -1253,6 +1260,21 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
     
     
     
+    // rest props:
+    const {
+        // accessibilities:
+        press,
+        
+        // behaviors:
+        actionCtrl = defaultActionCtrl,
+        
+        // variants:
+        outlined   = defaultOutlined,
+        mild       = defaultMild,
+    ...restProps} = props;
+    
+    
+    
     // fn props:
     const {
         semanticTag,
@@ -1266,15 +1288,17 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
     const tag  = (isDefaultButton ? (props.tag ?? '') : buttonTag );
     const type = (isDefaultButton ?  props.type       : buttonType);
     
+    const pressFn = press ?? ((actionCtrl && !!props.active && !outlined && !mild) || undefined); // if (active (as press) === false) => uncontrolled press
+
     
     
     // jsx:
     return (
-        props.actionCtrl
+        actionCtrl
         ?
         <ActionControl<TElement>
             // other props:
-            {...props}
+            {...restProps}
             
             
             // semantics:
@@ -1285,10 +1309,12 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
             
             // accessibilities:
             inheritActive={props.inheritActive ?? true} // change default value to `true`
+            press={pressFn}
             
             
             // variants:
-            mild={props.mild ?? false}
+            outlined={outlined}
+            mild={mild}
             
             
             // classes:
@@ -1304,7 +1330,7 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
         :
         <Indicator<TElement>
             // other props:
-            {...props}
+            {...restProps}
             
             
             // semantics:
@@ -1316,7 +1342,8 @@ export function ListItem<TElement extends HTMLElement = HTMLElement>(props: List
             
             
             // variants:
-            mild={props.mild ?? false}
+            outlined={outlined}
+            mild={mild}
             
             
             // classes:
@@ -1344,7 +1371,7 @@ export function ListSeparatorItem<TElement extends HTMLElement = HTMLElement>(pr
             
             
             // behaviors:
-            actionCtrl={false}
+            actionCtrl={false} // force to always non-actionCtrl
             
             
             // classes:
@@ -1366,10 +1393,10 @@ export interface ListProps<TElement extends HTMLElement = HTMLElement>
         OrientationVariant,
         
         // appearances:
-        ListVariant
+        ListVariant,
+
+        Pick<ListItemProps<TElement>, 'actionCtrl'>
 {
-    // behaviors:
-    actionCtrl? : boolean
 }
 export function List<TElement extends HTMLElement = HTMLElement>(props: ListProps<TElement>) {
     // styles:
@@ -1387,7 +1414,12 @@ export function List<TElement extends HTMLElement = HTMLElement>(props: ListProp
     // rest props:
     const {
         // behaviors:
-        actionCtrl,
+        actionCtrl = defaultActionCtrl,
+        
+        
+        // variants:
+        outlined   = defaultOutlined,
+        mild       = defaultMild,
         
         
         // children:
@@ -1428,6 +1460,11 @@ export function List<TElement extends HTMLElement = HTMLElement>(props: ListProp
                 orientationVariant.class,
                 listVariant.class,
             ]}
+            
+            
+            // variants:
+            outlined={outlined}
+            mild={mild}
         >
             {React.Children.map(children, (child, index) => {
                 // handlers:
@@ -1461,6 +1498,11 @@ export function List<TElement extends HTMLElement = HTMLElement>(props: ListProp
                                 actionCtrl={child.props.actionCtrl ?? actionCtrl} // the default value of [actionCtrl] is belong to List's [actionCtrl]
                                 
                                 
+                                // variants:
+                                outlined={child.props.outlined ?? outlined}
+                                mild    ={child.props.mild     ?? mild    }
+                                
+                                
                                 // events:
                                 onAnimationEnd={(e) => {
                                     child.props.onAnimationEnd?.(e);
@@ -1474,6 +1516,11 @@ export function List<TElement extends HTMLElement = HTMLElement>(props: ListProp
                             <ListItem
                                 // behaviors:
                                 actionCtrl={actionCtrl} // the default value of [actionCtrl] is belong to List's [actionCtrl]
+                                
+                                
+                                // variants:
+                                outlined={outlined}
+                                mild    ={mild    }
                                 
                                 
                                 // events:

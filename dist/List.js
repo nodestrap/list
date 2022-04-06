@@ -853,38 +853,51 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
         // ]],
     };
 }, { prefix: 'lst' });
+// defaults:
+const defaultActionCtrl = false;
+const defaultOutlined = false;
+const defaultMild = true;
 export function ListItem(props) {
     // styles:
     const sheet = useListItemSheet();
     const sheetAction = useListActionItemSheet();
+    // rest props:
+    const { 
+    // accessibilities:
+    press, 
+    // behaviors:
+    actionCtrl = defaultActionCtrl, 
+    // variants:
+    outlined = defaultOutlined, mild = defaultMild, ...restProps } = props;
     // fn props:
     const { semanticTag, semanticRole, isSemanticBtn, tag: buttonTag, type: buttonType, } = useSemanticButton(props);
     const isDefaultButton = isSemanticBtn && (props.tag === undefined);
     const tag = (isDefaultButton ? (props.tag ?? '') : buttonTag);
     const type = (isDefaultButton ? props.type : buttonType);
+    const pressFn = press ?? ((actionCtrl && !!props.active && !outlined && !mild) || undefined); // if (active (as press) === false) => uncontrolled press
     // jsx:
-    return (props.actionCtrl
+    return (actionCtrl
         ?
-            React.createElement(ActionControl, { ...props, 
+            React.createElement(ActionControl, { ...restProps, 
                 // semantics:
                 semanticTag: semanticTag, semanticRole: semanticRole, tag: tag, 
                 // accessibilities:
-                inheritActive: props.inheritActive ?? true, 
+                inheritActive: props.inheritActive ?? true, press: pressFn, 
                 // variants:
-                mild: props.mild ?? false, 
+                outlined: outlined, mild: mild, 
                 // classes:
                 mainClass: props.mainClass ?? [sheet.main, sheetAction.main].join(' '), ...{
                     // actions:
                     type,
                 } })
         :
-            React.createElement(Indicator, { ...props, 
+            React.createElement(Indicator, { ...restProps, 
                 // semantics:
                 tag: tag, 
                 // accessibilities:
                 inheritActive: props.inheritActive ?? true, 
                 // variants:
-                mild: props.mild ?? false, 
+                outlined: outlined, mild: mild, 
                 // classes:
                 mainClass: props.mainClass ?? sheet.main }));
 }
@@ -912,7 +925,9 @@ export function List(props) {
     // rest props:
     const { 
     // behaviors:
-    actionCtrl, 
+    actionCtrl = defaultActionCtrl, 
+    // variants:
+    outlined = defaultOutlined, mild = defaultMild, 
     // children:
     children, ...restProps } = props;
     // fn props:
@@ -931,7 +946,9 @@ export function List(props) {
         mainClass: props.mainClass ?? sheet.main, variantClasses: [...(props.variantClasses ?? []),
             orientationVariant.class,
             listVariant.class,
-        ] }, React.Children.map(children, (child, index) => {
+        ], 
+        // variants:
+        outlined: outlined, mild: mild }, React.Children.map(children, (child, index) => {
         // handlers:
         const handleAnimationEnd = (e) => {
             // triggers `List`'s onAnimationEnd event
@@ -951,6 +968,8 @@ export function List(props) {
                 , { ...child.props, 
                     // behaviors:
                     actionCtrl: child.props.actionCtrl ?? actionCtrl, 
+                    // variants:
+                    outlined: child.props.outlined ?? outlined, mild: child.props.mild ?? mild, 
                     // events:
                     onAnimationEnd: (e) => {
                         child.props.onAnimationEnd?.(e);
@@ -962,6 +981,8 @@ export function List(props) {
                 , { 
                     // behaviors:
                     actionCtrl: actionCtrl, 
+                    // variants:
+                    outlined: outlined, mild: mild, 
                     // events:
                     onAnimationEnd: handleAnimationEnd }, child)));
     })));
